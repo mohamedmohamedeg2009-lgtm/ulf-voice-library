@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice AI"
+  short_description: "Build consent-aware provider-neutral AI features for Gulf Voice."
+  default_prompt: "Use $gulf-voice-ai to implement or review this AI feature."

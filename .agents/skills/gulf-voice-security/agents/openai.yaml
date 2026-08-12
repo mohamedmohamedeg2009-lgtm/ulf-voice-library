@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice Security"
+  short_description: "Secure authentication, secrets, inputs, storage, and writes."
+  default_prompt: "Use $gulf-voice-security to secure or review this Gulf Voice change."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice Database"
+  short_description: "Design safe Supabase and PostgreSQL data changes for Gulf Voice."
+  default_prompt: "Use $gulf-voice-database to design or review this database change."

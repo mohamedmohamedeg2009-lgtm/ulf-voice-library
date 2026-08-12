@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice Audio"
+  short_description: "Implement reliable and extensible audio behavior for Gulf Voice."
+  default_prompt: "Use $gulf-voice-audio to implement or review this audio task."

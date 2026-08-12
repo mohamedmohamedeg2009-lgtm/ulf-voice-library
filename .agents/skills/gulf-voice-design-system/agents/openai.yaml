@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice Design System"
+  short_description: "Enforce the Arabic RTL, mobile-first Gulf Voice UI system."
+  default_prompt: "Use $gulf-voice-design-system to design or review this Gulf Voice interface."

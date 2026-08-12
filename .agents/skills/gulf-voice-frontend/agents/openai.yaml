@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice Frontend"
+  short_description: "Build maintainable Next.js frontend features for Gulf Voice."
+  default_prompt: "Use $gulf-voice-frontend to implement this Gulf Voice frontend task."

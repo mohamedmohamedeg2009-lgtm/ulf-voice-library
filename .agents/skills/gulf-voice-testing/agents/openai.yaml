@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice Testing"
+  short_description: "Test Gulf Voice features and enforce completion checks."
+  default_prompt: "Use $gulf-voice-testing to test or diagnose this Gulf Voice change."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Gulf Voice TTS"
+  short_description: "Integrate provider-neutral server-side text-to-speech services."
+  default_prompt: "Use $gulf-voice-tts to implement or review this TTS task."
