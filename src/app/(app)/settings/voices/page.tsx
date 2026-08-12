@@ -1,0 +1,2 @@
+import { PageHeading } from "@/components/layout/page-heading"; import { VoiceAdmin } from "@/features/voices/voice-admin"; import { listVoices } from "@/services/voices-repository";
+export default async function VoiceSettingsPage(){const voices=await listVoices();return <><PageHeading eyebrow="VOICE ADMIN" title="إدارة الأصوات" description="أضف الشخصية ومعرّف المزود، ثم فعّلها بعد التحقق من المعاينة."/><VoiceAdmin initialVoices={voices}/></>}

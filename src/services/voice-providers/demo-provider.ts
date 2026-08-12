@@ -1,10 +1,11 @@
 import { performanceSettingsSchema } from "@/features/studio/schemas";
 import { demoVoices } from "@/features/voices/demo-voices";
-import type { GenerationRequest, PerformanceSettings } from "@/features/studio/schemas";
-import type { VoiceProvider, ProviderResult } from "@/services/voice-provider";
+import type { PerformanceSettings } from "@/features/studio/schemas";
+import type { VoiceProvider, ProviderResult, ProviderGenerationRequest } from "@/services/voice-provider";
 
 export class DemoVoiceProvider implements VoiceProvider {
-  async generateVoice(_request: GenerationRequest): Promise<ProviderResult> {
+  async generateVoice(request: ProviderGenerationRequest): Promise<ProviderResult> {
+    void request;
     return {
       ok: false,
       error: { code: "provider_unavailable", message: "مزود الصوت التجريبي لا يولد ملفات صوتية." },

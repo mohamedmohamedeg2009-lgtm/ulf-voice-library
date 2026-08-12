@@ -1,0 +1,2 @@
+import { PageHeading } from "@/components/layout/page-heading"; import { VoiceLibrary } from "@/features/voices/voice-library"; import { listVoices } from "@/services/voices-repository";
+export default async function VoicesPage(){return <><PageHeading eyebrow="VOICE LIBRARY" title="مكتبة الأصوات" description="أصوات رجالية خليجية مستقلة، مع أولوية للشخصيات الكويتية."/><VoiceLibrary voices={await listVoices()}/></>}

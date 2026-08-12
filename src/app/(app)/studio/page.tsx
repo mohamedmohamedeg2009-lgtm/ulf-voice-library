@@ -1,0 +1,2 @@
+import { PageHeading } from "@/components/layout/page-heading"; import { StudioWorkspace } from "@/features/studio/studio-workspace"; import { listVoices } from "@/services/voices-repository";
+export default async function StudioPage(){return <><PageHeading eyebrow="VOICE STUDIO" title="استوديو الصوت" description="اكتب النص، اختر الشخصية، واضبط أداءً يناسب رسالتك."/><StudioWorkspace voices={await listVoices()}/></>}

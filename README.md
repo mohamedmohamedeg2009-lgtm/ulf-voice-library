@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gulf Voice Library
 
-## Getting Started
+مكتبة شخصية عربية RTL للأصوات الرجالية الخليجية، مبنية بـ Next.js App Router وSupabase. تركز بيانات البداية على الشخصيات الكويتية، مع بنية قابلة للتوسع إلى مزودات ومجالات أخرى.
 
-First, run the development server:
+## المزايا
+
+- Dashboard، Voice Studio، Voice Library، Favorites، History، Projects وSettings.
+- إعدادات أداء احترافية، تحسين تلقائي بموافقة المستخدم، وترشيح أفضل ثلاثة أصوات.
+- طبقة `VoiceProvider` مستقلة، مع `DemoVoiceProvider` صادق و`ElevenLabsProvider` اختياري.
+- طبقة `AIService` مستقلة وتحليل demo محلي منظم؛ يمكن إضافة مزود AI خارجي دون ربط المكونات به.
+- Supabase Auth مع بريد واحد مسموح، وRLS، وStorage خاص للصوت المولّد.
+- 10 أصوات seed تجريبية مستقلة وقابلة للاستبدال بأكثر من 100 صوت.
+
+## التشغيل المحلي
 
 ```bash
+npm install
+copy .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+على PowerShell الذي يمنع `npm.ps1` استخدم `npm.cmd run dev`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. أنشئ مشروع Supabase.
+2. طبّق `supabase/migrations/0001_initial_schema.sql` ثم `supabase/seed.sql`.
+3. أنشئ مستخدمًا واحدًا في Supabase Auth.
+4. أضف البريد نفسه إلى `ALLOWED_EMAIL` في `.env.local`.
+5. أضف URL وanon key العامين. لا تضع service-role key في متغير يبدأ بـ`NEXT_PUBLIC_`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## تفعيل توليد الصوت
 
-## Learn More
+الوضع الافتراضي `VOICE_PROVIDER=demo` لا يختلق ملفات صوتية، وسيعرض رسالة أن المزود غير متاح. لتفعيل ElevenLabs:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+VOICE_PROVIDER=elevenlabs
+ELEVENLABS_API_KEY=...
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+يجب أن تحمل سجلات `voices` قيمة `provider = 'elevenlabs'` و`provider_voice_id` حقيقية. ملفات preview غير مضمنة لأن الأصوات العشرة بيانات Demo فقط.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+الصوت المولّد يُرفع إلى bucket خاص ويُعاد كرابط موقّع مؤقت. لذلك تبقى مشاركة WhatsApp معطلة حتى تُنفذ آلية `publicShareUrl` مقصودة؛ لا توجد WhatsApp API مباشرة.
 
-## Deploy on Vercel
+## أوامر الجودة
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build
+npm run check
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## النشر على Vercel
+
+اربط المستودع بـVercel، أضف متغيرات `.env.example` المناسبة لكل بيئة، واجعل Build Command هو `npm run build`. طبّق migrations وseed على Supabase قبل فتح الموقع. جميع Route Handlers تعيد التحقق من المستخدم ولا تعتمد على Proxy وحده.
+
+## حدود النسخة الحالية
+
+- AI demo حتمي ومحلي؛ واجهة `AIService` جاهزة لمزود خارجي لكن لا توجد استدعاءات AI مدفوعة دون إعداد صريح.
+- Voice Comparison وPerformance Variations ممثلتان في البنية المتعددة للمزودات والإعدادات، ولم تُعرضا كتوليد فعلي لأن دعم المزود لم يُثبت.
+- إدارة الأصوات في الواجهة أولية؛ مصدر الحقيقة الدائم هو جدول `voices` والمigrations.

@@ -1,0 +1,2 @@
+import { DemoVoiceProvider } from "./demo-provider"; import { ElevenLabsProvider } from "./elevenlabs-provider"; import type { VoiceProvider } from "@/services/voice-provider";
+export function getVoiceProvider(provider=process.env.VOICE_PROVIDER):VoiceProvider { if(provider==="elevenlabs"&&process.env.ELEVENLABS_API_KEY)return new ElevenLabsProvider(process.env.ELEVENLABS_API_KEY);return new DemoVoiceProvider(); }

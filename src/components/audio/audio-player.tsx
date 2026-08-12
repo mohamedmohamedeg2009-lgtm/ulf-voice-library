@@ -1,0 +1,3 @@
+"use client";
+import { useRef } from "react"; import { Volume2 } from "lucide-react";
+export function AudioPlayer({src,label}:{src:string|null;label:string}){const ref=useRef<HTMLAudioElement>(null);if(!src)return <div className="flex min-h-12 items-center gap-2 rounded-xl border border-dashed border-white/10 px-3 text-xs text-slate-500"><Volume2 className="size-4"/>المعاينة غير مضافة بعد</div>;return <audio ref={ref} aria-label={label} controls preload="none" onPlay={()=>document.querySelectorAll("audio").forEach((audio)=>{if(audio!==ref.current)audio.pause()})} className="h-11 w-full" src={src}/>}

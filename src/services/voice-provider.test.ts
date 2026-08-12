@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { DemoVoiceProvider } from "./voice-providers/demo-provider";
+import { mapElevenLabsSettings } from "./voice-providers/elevenlabs-provider";
 
 describe("DemoVoiceProvider", () => {
   it("validates provider settings before generation", () => {
@@ -18,6 +19,17 @@ describe("DemoVoiceProvider", () => {
     expect(result).toEqual({
       ok: false,
       error: { code: "provider_unavailable", message: "مزود الصوت التجريبي لا يولد ملفات صوتية." },
+    });
+  });
+});
+
+describe("ElevenLabs settings adapter", () => {
+  it("maps only supported normalized settings into provider fields", () => {
+    expect(mapElevenLabsSettings({ stability: 75, expression: 60, speed: 1.2, clarity: 90 })).toEqual({
+      stability: 0.75,
+      similarity_boost: 0.9,
+      style: 0.6,
+      use_speaker_boost: true,
     });
   });
 });
