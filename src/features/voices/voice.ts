@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { timezoneAwareDateTimeSchema } from "@/lib/validation/timestamps";
 
 export const voiceSchema = z.object({
   id: z.uuid(),
@@ -17,8 +18,8 @@ export const voiceSchema = z.object({
   providerVoiceId: z.string().trim().min(1),
   isFavorite: z.boolean(),
   isActive: z.boolean(),
-  createdAt: z.iso.datetime(),
-  updatedAt: z.iso.datetime(),
+  createdAt: timezoneAwareDateTimeSchema,
+  updatedAt: timezoneAwareDateTimeSchema,
 });
 
 export type Voice = z.infer<typeof voiceSchema>;

@@ -30,4 +30,26 @@ describe("voiceSchema", () => {
   it("rejects female voices because this library is male-only", () => {
     expect(() => voiceSchema.parse({ ...voice, gender: "female" })).toThrow();
   });
+
+  it.each([
+    "2026-01-01T00:00:00.000Z",
+    "2026-01-01T03:00:00.000+03:00",
+  ])("accepts timezone-aware voice timestamps: %s", (timestamp) => {
+    const result = voiceSchema.parse({
+      ...voice,
+      createdAt: timestamp,
+      updatedAt: timestamp,
+    });
+
+    expect(result.createdAt).toBe(timestamp);
+    expect(result.updatedAt).toBe(timestamp);
+  });
+
+  it("rejects voice timestamps without timezone information", () => {
+    expect(() => voiceSchema.parse({
+      ...voice,
+      createdAt: "2026-01-01T00:00:00.000",
+      updatedAt: "2026-01-01T00:00:00.000",
+    })).toThrow();
+  });
 });

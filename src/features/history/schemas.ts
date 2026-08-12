@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { performanceSettingsSchema } from "@/features/studio/schemas";
+import { timezoneAwareDateTimeSchema } from "@/lib/validation/timestamps";
 
 export const recordingSchema = z.object({
   id: z.uuid(),
@@ -12,7 +13,7 @@ export const recordingSchema = z.object({
   wavUrl: z.url().nullable(),
   duration: z.number().nonnegative().nullable(),
   projectId: z.uuid().nullable(),
-  createdAt: z.iso.datetime(),
+  createdAt: timezoneAwareDateTimeSchema,
 }).refine((value) => Boolean(value.audioUrl || value.mp3Url || value.wavUrl), {
   message: "يجب أن يحتوي التسجيل على ملف صوتي واحد على الأقل",
 });

@@ -18,4 +18,25 @@ describe("recordingSchema", () => {
     });
     expect(result.success).toBe(false);
   });
+
+  it.each([
+    "2026-01-01T00:00:00.000Z",
+    "2026-01-01T03:00:00.000+03:00",
+  ])("accepts timezone-aware recording timestamps: %s", (timestamp) => {
+    const result = recordingSchema.parse({
+      id: "10000000-0000-4000-8000-000000000011",
+      text: "تجربة",
+      voiceId: "10000000-0000-4000-8000-000000000001",
+      voiceName: "ناصر",
+      settings: {},
+      audioUrl: "https://example.com/audio.mp3",
+      mp3Url: "https://example.com/audio.mp3",
+      wavUrl: null,
+      duration: 1,
+      projectId: null,
+      createdAt: timestamp,
+    });
+
+    expect(result.createdAt).toBe(timestamp);
+  });
 });
