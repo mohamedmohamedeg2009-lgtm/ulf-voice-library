@@ -10,6 +10,7 @@ export const smartSettingsResponseSchema = z.object({
 });
 
 const contentPatterns = [
+  ["إعلان مباراة", /مباراة|مواجهة/],
   ["تم اكتمال الحجز", /اكتمل|كامل|تم الحجز/],
   ["باقي أماكن", /باقي|متبقي|مكانين|أماكن/],
   ["تغيير موعد", /تغيير.*موعد|تأجيل/],
@@ -20,7 +21,6 @@ const contentPatterns = [
   ["حجز ملعب", /حجز.*ملعب|احجز/],
   ["بطولة", /بطولة/],
   ["تحدي", /تحدي/],
-  ["إعلان مباراة", /مباراة|مواجهة/],
 ] as const;
 
 export function analyzeText(text: string): TextAnalysis {
